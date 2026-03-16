@@ -1,10 +1,11 @@
 import os
 import glob
-import pickle
+import chromadb
 from sentence_transformers import SentenceTransformer
 
 CORPUS_DIR = "corpus"
-EMBEDDINGS_FILE = "ai_observe/corpus_embeddings.pkl"
+CHROMA_DB_DIR = "ai_observe/chroma_db"
+COLLECTION_NAME = "ai_observability_corpus"
 MODEL_NAME = "all-MiniLM-L6-v2"
 
 def load_corpus():
@@ -31,17 +32,32 @@ def compute_embeddings():
     texts = [doc["text"] for doc in docs]
     print("Computing embeddings...")
     embeddings = model.encode(texts, show_progress_bar=True)
+    embeddings_list = embeddings.tolist()
     
-    data = {
-        "docs": docs,
-        "embeddings": embeddings
-    }
+    print("Initializing ChromaDB...")
+    client = chromadb.PersistentClient(path=CHROMA_DB_DIR)
     
-    os.makedirs(os.path.dirname(EMBEDDINGS_FILE), exist_ok=True)
-    with open(EMBEDDINGS_FILE, "wb") as f:
-        pickle.dump(data, f)
+    try:
+        client.delete_collection(name=COLLECTION_NAME)
+    except Exception:
+        pass
         
-    print(f"Saved {len(docs)} embeddings to {EMBEDDINGS_FILE}")
+    collection = client.create_collection(
+        name=COLLECTION_NAME,
+        metadata={"hnsw:space": "cosine"}
+    )
+    
+    ids = [doc["id"] for doc in docs]
+    
+    print("Ingesting into ChromaDB...")
+    collection.add(
+        ids=ids,
+        embeddings=embeddings_list,
+        documents=texts,
+        metadatas=[{"source": doc["id"]} for doc in docs]
+    )
+    
+    print(f"Saved {len(docs)} documents to ChromaDB at {CHROMA_DB_DIR}")
 
 if __name__ == "__main__":
     compute_embeddings()

@@ -1,18 +1,19 @@
-import pickle
 import numpy as np
+import chromadb
 from sentence_transformers import SentenceTransformer, util
 from transformers import pipeline
 
 from ai_observe.sdk import trace
 
-EMBEDDINGS_FILE = "ai_observe/corpus_embeddings.pkl"
+CHROMA_DB_DIR = "ai_observe/chroma_db"
+COLLECTION_NAME = "ai_observability_corpus"
 EMBEDDING_MODEL_NAME = "all-MiniLM-L6-v2"
 GENERATION_MODEL_NAME = "google/flan-t5-small"
 
 # Lazy loading singletons for performance
 _embedding_model = None
 _generation_pipeline = None
-_corpus_data = None
+_chroma_collection = None
 
 def get_embedding_model():
     global _embedding_model
@@ -20,50 +21,58 @@ def get_embedding_model():
         _embedding_model = SentenceTransformer(EMBEDDING_MODEL_NAME)
     return _embedding_model
 
-def get_generation_pipeline():
+from transformers import AutoTokenizer, T5ForConditionalGeneration
+
+def get_generation_model_and_tokenizer():
     global _generation_pipeline
     if _generation_pipeline is None:
-        _generation_pipeline = pipeline("text2text-generation", model=GENERATION_MODEL_NAME)
+        tokenizer = AutoTokenizer.from_pretrained(GENERATION_MODEL_NAME)
+        model = T5ForConditionalGeneration.from_pretrained(GENERATION_MODEL_NAME)
+        _generation_pipeline = (tokenizer, model)
     return _generation_pipeline
 
-def load_corpus():
-    global _corpus_data
-    if _corpus_data is None:
+def get_chroma_collection():
+    global _chroma_collection
+    if _chroma_collection is None:
+        client = chromadb.PersistentClient(path=CHROMA_DB_DIR)
         try:
-            with open(EMBEDDINGS_FILE, "rb") as f:
-                _corpus_data = pickle.load(f)
-        except FileNotFoundError:
-            raise RuntimeError(f"Embeddings file not found at {EMBEDDINGS_FILE}. Run compute_embeddings.py first.")
-    return _corpus_data
+            _chroma_collection = client.get_collection(name=COLLECTION_NAME)
+        except Exception:
+            raise RuntimeError(f"Chroma collection '{COLLECTION_NAME}' not found. Run compute_embeddings.py first.")
+    return _chroma_collection
 
 @trace
 def retrieve(query, top_k=3):
-    corpus_data = load_corpus()
+    collection = get_chroma_collection()
     model = get_embedding_model()
     
-    query_embedding = model.encode(query)
+    query_embedding = model.encode(query).tolist()
     
-    # Compute cosine similarity
-    cos_scores = util.cos_sim(query_embedding, corpus_data["embeddings"])[0]
+    results = collection.query(
+        query_embeddings=[query_embedding],
+        n_results=top_k
+    )
     
-    # Get top_k results
-    top_results = np.argpartition(-cos_scores, range(min(top_k, len(cos_scores))))[:top_k]
-    
-    results = []
-    for idx in top_results:
-        results.append({
-            "id": corpus_data["docs"][idx]["id"],
-            "text": corpus_data["docs"][idx]["text"],
-            "score": float(cos_scores[idx])
-        })
-    
-    # Sort by score descending
-    results.sort(key=lambda x: x["score"], reverse=True)
-    return results
+    mapped_results = []
+    if results['ids'] and len(results['ids']) > 0:
+        ids = results['ids'][0]
+        distances = results['distances'][0]
+        documents = results['documents'][0]
+        
+        for i in range(len(ids)):
+            score = 1.0 - distances[i] if distances[i] is not None else 0.0
+            mapped_results.append({
+                "id": ids[i],
+                "text": documents[i],
+                "score": float(score)
+            })
+            
+    mapped_results.sort(key=lambda x: x["score"], reverse=True)
+    return mapped_results
 
 @trace
 def generate_answer(query, retrieved):
-    generator = get_generation_pipeline()
+    tokenizer, model = get_generation_model_and_tokenizer()
     
     context = " ".join([doc["text"] for doc in retrieved])
     
@@ -73,8 +82,11 @@ def generate_answer(query, retrieved):
     
     prompt = f"Answer the question based on the context.\nContext: {truncated_context}\nQuestion: {query}\nAnswer:"
     
-    result = generator(prompt, max_length=150, truncation=True)
-    return result[0]["generated_text"]
+    inputs = tokenizer(prompt, return_tensors="pt", max_length=512, truncation=True)
+    outputs = model.generate(**inputs, max_new_tokens=150)
+    generated = tokenizer.decode(outputs[0], skip_special_tokens=True)
+        
+    return generated.strip()
 
 @trace
 def judge_grounding(answer, retrieved):
