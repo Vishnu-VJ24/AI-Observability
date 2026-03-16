@@ -1,0 +1,1 @@
+LLM hallucinations occur when a language model generates text that is incorrect, nonsensical, or not logically justified by the source data, leading to misinformation.

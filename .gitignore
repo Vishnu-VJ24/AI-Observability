@@ -1,0 +1,9 @@
+__pycache__/
+.env
+*.pyc
+.vscode/
+.venv/
+ai_observe/corpus_embeddings.pkl
+ai_observe/traces.json
+.env.local
+.DS_Store

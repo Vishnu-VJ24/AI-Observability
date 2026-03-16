@@ -1,0 +1,1 @@
+Tracing is the process of monitoring the execution of a request through various components of an application, providing visibility into latency and errors.

@@ -1,0 +1,1 @@
+Prompt injection is a vulnerability where an attacker uses crafted inputs to manipulate a language model's output, often bypassing safety restrictions.

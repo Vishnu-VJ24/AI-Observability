@@ -1,0 +1,1 @@
+Sentence transformers are neural networks that can map sentences and paragraphs to a dense vector space. They are very useful for semantic similarity searches.
