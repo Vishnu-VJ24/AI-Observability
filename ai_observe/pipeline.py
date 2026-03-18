@@ -1,7 +1,6 @@
-import numpy as np
 import chromadb
 from sentence_transformers import SentenceTransformer, util
-from transformers import pipeline
+from transformers import AutoTokenizer, T5ForConditionalGeneration
 
 from ai_observe.sdk import trace
 
@@ -15,21 +14,24 @@ _embedding_model = None
 _generation_pipeline = None
 _chroma_collection = None
 
+
 def get_embedding_model():
     global _embedding_model
     if _embedding_model is None:
         _embedding_model = SentenceTransformer(EMBEDDING_MODEL_NAME)
     return _embedding_model
 
-from transformers import AutoTokenizer, T5ForConditionalGeneration
 
 def get_generation_model_and_tokenizer():
     global _generation_pipeline
     if _generation_pipeline is None:
         tokenizer = AutoTokenizer.from_pretrained(GENERATION_MODEL_NAME)
-        model = T5ForConditionalGeneration.from_pretrained(GENERATION_MODEL_NAME)
+        model = T5ForConditionalGeneration.from_pretrained(
+            GENERATION_MODEL_NAME
+        )
         _generation_pipeline = (tokenizer, model)
     return _generation_pipeline
+
 
 def get_chroma_collection():
     global _chroma_collection
@@ -38,27 +40,31 @@ def get_chroma_collection():
         try:
             _chroma_collection = client.get_collection(name=COLLECTION_NAME)
         except Exception:
-            raise RuntimeError(f"Chroma collection '{COLLECTION_NAME}' not found. Run compute_embeddings.py first.")
+            raise RuntimeError(
+                f"Chroma collection '{COLLECTION_NAME}' not found. "
+                "Run compute_embeddings.py first."
+            )
     return _chroma_collection
+
 
 @trace
 def retrieve(query, top_k=3):
     collection = get_chroma_collection()
     model = get_embedding_model()
-    
+
     query_embedding = model.encode(query).tolist()
-    
+
     results = collection.query(
         query_embeddings=[query_embedding],
         n_results=top_k
     )
-    
+
     mapped_results = []
     if results['ids'] and len(results['ids']) > 0:
         ids = results['ids'][0]
         distances = results['distances'][0]
         documents = results['documents'][0]
-        
+
         for i in range(len(ids)):
             score = 1.0 - distances[i] if distances[i] is not None else 0.0
             mapped_results.append({
@@ -66,55 +72,71 @@ def retrieve(query, top_k=3):
                 "text": documents[i],
                 "score": float(score)
             })
-            
+
     mapped_results.sort(key=lambda x: x["score"], reverse=True)
     return mapped_results
+
 
 @trace
 def generate_answer(query, retrieved):
     tokenizer, model = get_generation_model_and_tokenizer()
-    
+
     context = " ".join([doc["text"] for doc in retrieved])
-    
+
     # Truncate context if needed for flan-t5-small (~512 tokens max usually)
     context_words = context.split()[:300]
     truncated_context = " ".join(context_words)
-    
-    prompt = f"Answer the question based on the context.\nContext: {truncated_context}\nQuestion: {query}\nAnswer:"
-    
-    inputs = tokenizer(prompt, return_tensors="pt", max_length=512, truncation=True)
+
+    prompt = (
+        f"Answer the question based on the context.\n"
+        f"Context: {truncated_context}\nQuestion: {query}\nAnswer:"
+    )
+
+    inputs = tokenizer(
+        prompt, return_tensors="pt", max_length=512, truncation=True
+    )
     outputs = model.generate(**inputs, max_new_tokens=150)
     generated = tokenizer.decode(outputs[0], skip_special_tokens=True)
-        
+
     return generated.strip()
+
 
 @trace
 def judge_grounding(answer, retrieved):
     # evaluate based on embedding similarity of answer to context
     model = get_embedding_model()
-    
+
     context = " ".join([doc["text"] for doc in retrieved])
     if not context:
-        return {"verdict": "fail", "score": 0.0, "reason": "No context retrieved"}
-        
+        return {
+            "verdict": "fail",
+            "score": 0.0,
+            "reason": "No context retrieved"
+        }
+
     answer_embedding = model.encode(answer)
     context_embedding = model.encode(context)
-    
+
     score = float(util.cos_sim(answer_embedding, context_embedding)[0][0])
-    
+
     verdict = "pass" if score > 0.4 else "fail"
+    reason = (
+        "Embedding similarity > 0.4 between answer and context"
+        if verdict == "pass" else "Low semantic overlap with context"
+    )
     return {
         "verdict": verdict,
         "score": score,
-        "reason": "Embedding similarity > 0.4 between answer and context" if verdict == "pass" else "Low semantic overlap with context"
+        "reason": reason
     }
+
 
 @trace
 def run_pipeline(query):
     retrieved = retrieve(query)
     answer = generate_answer(query, retrieved)
     judgment = judge_grounding(answer, retrieved)
-    
+
     return {
         "query": query,
         "retrieved": retrieved,

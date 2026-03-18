@@ -1,6 +1,7 @@
 import pytest
 from ai_observe.pipeline import retrieve, judge_grounding
 
+
 def test_retrieve():
     try:
         results = retrieve("What is AI observability?", top_k=2)
@@ -10,7 +11,11 @@ def test_retrieve():
             assert "text" in results[0]
             assert "score" in results[0]
     except RuntimeError:
-        pytest.skip("Embeddings not computed yet. Run compute_embeddings.py to test retrieve().")
+        pytest.skip(
+            "Embeddings not computed yet. "
+            "Run compute_embeddings.py to test retrieve()."
+        )
+
 
 def test_judge_grounding():
     # Provide a simple test to ensure judge_grounding returns expected structure

@@ -4,6 +4,7 @@ import time
 
 TRACE_FILE = "ai_observe/traces.json"
 
+
 def trace(func):
     def wrapper(*args, **kwargs):
         start_time = time.time()
@@ -18,6 +19,7 @@ def trace(func):
             raise
         finally:
             end_time = time.time()
+
             # Basic serialization of args/kwargs for trace
             def serialize(obj):
                 try:
@@ -36,9 +38,9 @@ def trace(func):
                 "latency_ms": (end_time - start_time) * 1000,
                 "timestamp": start_time
             }
-            
+
             os.makedirs(os.path.dirname(TRACE_FILE), exist_ok=True)
-            
+
             traces = []
             if os.path.exists(TRACE_FILE):
                 try:
@@ -46,11 +48,11 @@ def trace(func):
                         traces = json.load(f)
                 except Exception:
                     pass
-            
+
             traces.append(trace_data)
-            
+
             with open(TRACE_FILE, "w") as f:
                 json.dump(traces, f, indent=2)
-                
+
         return result
     return wrapper
