@@ -9,7 +9,8 @@ try:
 except ImportError:
     print("Chroma NOT installed")
     try:
-        subprocess.check_call([sys.executable, "-m", "pip", "install", "-r", "requirements.txt"])
+        subprocess.check_call(
+            [sys.executable, "-m", "pip", "install", "-r", "requirements.txt"])
         print("Finished installing")
     except Exception as e:
         print("Failed to install:", str(e))

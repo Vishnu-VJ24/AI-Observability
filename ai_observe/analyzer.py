@@ -25,7 +25,7 @@ def detect_failures(pipeline_result):
     query = pipeline_result.get("query", "").lower()
     retrieved = pipeline_result.get("retrieved", [])
     judgment = pipeline_result.get("judgment", {})
-    
+
     # 1. Prompt Injection Detection
     is_injection = any(keyword in query for keyword in INJECTION_KEYWORDS)
     if is_injection or re.search(

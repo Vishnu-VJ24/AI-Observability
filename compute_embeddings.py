@@ -23,13 +23,14 @@ def load_corpus():
             })
     return docs
 
+
 def compute_embeddings():
     print("Loading corpus...")
     docs = load_corpus()
     if not docs:
         print(f"No documents found in {CORPUS_DIR}/")
         return
-        
+
     print("Loading model " + MODEL_NAME + "...")
     model = SentenceTransformer(MODEL_NAME)
 

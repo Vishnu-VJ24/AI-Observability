@@ -18,12 +18,15 @@ def test_retrieve():
 
 
 def test_judge_grounding():
-    # Provide a simple test to ensure judge_grounding returns expected structure
+    # Provide a simple test to ensure judge_grounding returns expected
+    # structure
     answer = "Tracing is a method to monitor request execution."
     retrieved = [
-        {"id": "doc8.txt", "text": "Tracing is the process of monitoring the execution of a request through various components of an application.", "score": 0.9}
-    ]
-    
+        {
+            "id": "doc8.txt",
+            "text": "Tracing is the process of monitoring the execution of a request through various components of an application.",
+            "score": 0.9}]
+
     result = judge_grounding(answer, retrieved)
     assert isinstance(result, dict)
     assert "verdict" in result
