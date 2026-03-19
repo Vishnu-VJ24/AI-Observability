@@ -6,7 +6,7 @@ try:
             "git",
             "commit",
             "-m",
-            "feat(observability): Integrate ChromaDB, Failure Engine, and Root Cause Analyzer"])
+            "feat(observability): Integrate core components"])
     print("Commit successful")
 
     subprocess.check_call(["git", "push"])

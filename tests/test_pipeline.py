@@ -24,7 +24,10 @@ def test_judge_grounding():
     retrieved = [
         {
             "id": "doc8.txt",
-            "text": "Tracing is the process of monitoring the execution of a request through various components of an application.",
+            "text": (
+                "Tracing is the process of monitoring the execution "
+                "of a request through various components of an application."
+            ),
             "score": 0.9}]
 
     result = judge_grounding(answer, retrieved)

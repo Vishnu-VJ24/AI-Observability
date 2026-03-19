@@ -4,7 +4,7 @@ import subprocess
 print("Python version:", sys.version)
 
 try:
-    import chromadb
+    import chromadb  # noqa: F401
     print("Chroma is installed")
 except ImportError:
     print("Chroma NOT installed")
