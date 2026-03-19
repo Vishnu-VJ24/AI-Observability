@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Observability | LLM Debugger</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="glow-blob glow-1"></div>
+    <div class="glow-blob glow-2"></div>
+
+    <nav class="navbar">
+        <div class="logo">
+            <div class="logo-icon"></div>
+            <span>AI Observe</span>
+        </div>
+        <div class="nav-links">
+            <a href="https://github.com/vishnu/ai-observability" target="_blank" class="btn-outline">GitHub</a>
+        </div>
+    </nav>
+
+    <main class="container">
+        <header class="hero">
+            <h1>LLM Systems <span class="gradient-text">Debugger</span></h1>
+            <p>Catch hallucinations, debug RAG retrieval, and trace AI execution in real-time. Powered by Hugging Face & ChromaDB.</p>
+        </header>
+
+        <!-- Setup Alert for User -->
+        <div class="setup-alert glass-card" id="setupAlert">
+            <div class="alert-icon">⚠️</div>
+            <div class="alert-content">
+                <h3>Backend Not Connected</h3>
+                <p>To make this dashboard work, you need to deploy your backend to Hugging Face Spaces and update the <code>HF_SPACE_ID</code> in <code>app.js</code>.</p>
+            </div>
+            <button class="btn-close" onclick="document.getElementById('setupAlert').style.display='none'">×</button>
+        </div>
+
+        <div class="dashboard-grid">
+            <!-- Left Column: Input & Traces -->
+            <div class="col-left">
+                <div class="glass-card query-card">
+                    <h2>Run Pipeline</h2>
+                    <div class="input-group">
+                        <textarea id="queryInput" placeholder="Ask a question about AI observability to trigger the RAG pipeline..."></textarea>
+                        <button id="runBtn" class="btn-primary">
+                            <span class="btn-text">Execute Chain</span>
+                            <div class="loader hidden"></div>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="glass-card traces-card">
+                    <div class="card-header">
+                        <h2>Recent Traces</h2>
+                        <button id="refreshTracesBtn" class="btn-ghost" title="Refresh Traces">↻</button>
+                    </div>
+                    <div class="code-block-container">
+                        <pre><code id="tracesOutput" class="language-json">// Click refresh to load traces...</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Results & Diagnostics -->
+            <div class="col-right">
+                <!-- Status Bar -->
+                <div class="status-bar glass-card">
+                    <div class="status-item">
+                        <span class="label">Verdict</span>
+                        <div class="value-badge" id="verdictOutput">Awaiting...</div>
+                    </div>
+                    <div class="status-item">
+                        <span class="label">Latency</span>
+                        <div class="value" id="latencyOutput">-- ms</div>
+                    </div>
+                </div>
+
+                <!-- Answer Card -->
+                <div class="glass-card result-card">
+                    <h2>Generated Answer</h2>
+                    <div class="content-box answer-box" id="answerOutput">
+                        Outputs will appear here.
+                    </div>
+                </div>
+
+                <!-- Retrieved Context -->
+                <div class="glass-card code-card">
+                    <h2>Retrieved Documents</h2>
+                    <div class="code-block-container">
+                        <pre><code id="retrievedOutput" class="language-json">// Context will appear here</code></pre>
+                    </div>
+                </div>
+
+                <!-- Diagnostics -->
+                <div class="glass-card code-card">
+                    <h2>Diagnostics & Root Cause</h2>
+                    <div class="code-block-container">
+                        <pre><code id="diagnosticsOutput" class="language-json">// Diagnostics will appear here</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script type="module" src="app.js"></script>
+</body>
+</html>

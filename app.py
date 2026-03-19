@@ -79,7 +79,8 @@ with gr.Blocks() as demo:
                 answer_output,
                 verdict_output,
                 diagnostics_output
-            ]
+            ],
+            api_name="process_query"
         )
         query_input.submit(
             process_query,
@@ -89,7 +90,8 @@ with gr.Blocks() as demo:
                 answer_output,
                 verdict_output,
                 diagnostics_output
-            ]
+            ],
+            api_name="query_submit"
         )
         
     with gr.Tab("Traces"):
@@ -101,7 +103,8 @@ with gr.Blocks() as demo:
         refresh_btn.click(
             get_latest_traces,
             inputs=[],
-            outputs=[traces_output]
+            outputs=[traces_output],
+            api_name="get_traces"
         )
 
 if __name__ == "__main__":
