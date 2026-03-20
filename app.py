@@ -7,11 +7,13 @@ import os
 import ai_observe
 ai_observe.init("demo_app", destination="local")
 
-# Auto-build ChromaDB if it doesn't exist (crucial for Hugging Face Spaces startup)
+# Auto-build ChromaDB if it doesn't exist (crucial for Hugging Face Spaces
+# startup)
 if not os.path.exists("ai_observe/chroma_db"):
     print("ChromaDB not found. Generating embeddings automatically...")
     from compute_embeddings import compute_embeddings
     compute_embeddings()
+
 
 def process_query(query):
     try:
@@ -20,23 +22,25 @@ def process_query(query):
 
         # 2. Run the stripped-down logic pipeline
         result = run_pipeline(query)
-        
-        # 3. Prove the Observability works: Read the pure telemetry log to get insights!
+
+        # 3. Prove the Observability works: Read the pure telemetry log to get
+        # insights!
         log_file = "logs.json"
         diagnostics_json = "No traces logged."
         verdict = "Verdict: Unknown"
-        
+
         if os.path.exists(log_file):
             with open(log_file, "r") as f:
                 traces = json.load(f)
-            
+
             latest_trace = traces[-1]
             diagnostics_json = json.dumps(latest_trace, indent=2)
-            
+
             # Extract auto-evaluation metric from the generation span
             spans = latest_trace.get("spans", [])
-            gen_span = next((s for s in spans if s.get("span_type") == "generation"), None)
-            
+            gen_span = next(
+                (s for s in spans if s.get("span_type") == "generation"), None)
+
             if gen_span and "evaluation" in gen_span:
                 eval_data = gen_span["evaluation"]
                 is_grounded = eval_data.get("grounded", False)

@@ -8,6 +8,7 @@ from .config import Config
 from .state import current_trace_id, current_parent_id, active_traces
 from .evaluation import evaluate_hallucination
 
+
 def _serialize(obj):
     try:
         json.dumps(obj)
@@ -15,9 +16,10 @@ def _serialize(obj):
     except Exception:
         return str(obj)
 
+
 def trace(span_type="generic", evaluate_grounding=False):
     """
-    Production-grade decorator. 
+    Production-grade decorator.
     Intercepts inputs, outputs, builds trace trees, and runs evaluations.
     """
     def decorator(func):
@@ -26,7 +28,7 @@ def trace(span_type="generic", evaluate_grounding=False):
             # 1. Establish Trace Context
             trace_id = current_trace_id.get()
             is_root_span = False
-            
+
             if trace_id is None:
                 trace_id = str(uuid.uuid4())
                 current_trace_id.set(trace_id)
@@ -62,32 +64,34 @@ def trace(span_type="generic", evaluate_grounding=False):
                     "span_type": span_type,
                     "function": func.__name__,
                     "inputs": {
-                        "args": [_serialize(a) for a in args],
-                        "kwargs": {k: _serialize(v) for k, v in kwargs.items()}
-                    },
+                        "args": [
+                            _serialize(a) for a in args],
+                        "kwargs": {
+                            k: _serialize(v) for k,
+                            v in kwargs.items()}},
                     "output": _serialize(result) if status == "success" else None,
                     "status": status,
                     "error": error,
                     "latency_ms": latency,
-                    "timestamp": start_time
-                }
+                    "timestamp": start_time}
 
                 # 3. Automatic Grounding Evaluation (The Magic)
                 if evaluate_grounding and span_type == "generation" and status == "success":
                     spans = active_traces.get(trace_id, [])
-                    retrieval_spans = [s for s in spans if s.get("span_type") == "retrieval"]
-                    
+                    retrieval_spans = [
+                        s for s in spans if s.get("span_type") == "retrieval"]
+
                     if retrieval_spans:
                         latest_retrieval = retrieval_spans[-1]
                         retrieved_docs = latest_retrieval.get("output", [])
-                        eval_result = evaluate_hallucination(result, retrieved_docs)
+                        eval_result = evaluate_hallucination(
+                            result, retrieved_docs)
                         span_data["evaluation"] = eval_result
                     else:
                         span_data["evaluation"] = {
-                            "grounded": False, 
-                            "score": 0.0, 
-                            "reason": "SDK failed to locate a prior 'retrieval' span in this trace."
-                        }
+                            "grounded": False,
+                            "score": 0.0,
+                            "reason": "SDK failed to locate a prior 'retrieval' span in this trace."}
 
                 # Save span to memory
                 if trace_id in active_traces:
@@ -105,7 +109,7 @@ def trace(span_type="generic", evaluate_grounding=False):
                         "spans": active_traces[trace_id]
                     }
                     _write_trace(trace_record)
-                    
+
                     # Memory cleanup
                     del active_traces[trace_id]
                     current_trace_id.set(None)
@@ -114,10 +118,11 @@ def trace(span_type="generic", evaluate_grounding=False):
         return wrapper
     return decorator
 
+
 def _write_trace(trace_record):
     log_file = "logs.json" if Config.destination == "local" else f"{Config.project}_traces.json"
     traces = []
-    
+
     if os.path.exists(log_file):
         try:
             with open(log_file, "r") as f:

@@ -107,7 +107,8 @@ def run_pipeline(query):
     answer = generate_answer(query, retrieved)
 
     # Magic! Notice we do not run any hallucination checks here.
-    # The ai_observe wrapper automatically grades the generation span behind the scenes.
+    # The ai_observe wrapper automatically grades the generation span behind
+    # the scenes.
     return {
         "query": query,
         "retrieved": retrieved,

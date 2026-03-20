@@ -8,7 +8,6 @@ setup(
     packages=find_packages(),
     install_requires=[
         "sentence-transformers",
-        "numpy"
-    ],
+        "numpy"],
     python_requires=">=3.8",
 )
