@@ -16,4 +16,4 @@ jobs:
       - name: Run linters
         run: |
           pip install flake8
-          flake8 .
+          flake8 . --max-line-length=120
