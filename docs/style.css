@@ -311,3 +311,103 @@ code {
     .dashboard-grid { grid-template-columns: 1fr; }
     .hero h1 { font-size: 2.5rem; }
 }
+
+/* Custom UI Components for Trace & Docs rendering */
+.ui-container {
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 8px;
+    padding: 1rem;
+    max-height: 350px;
+    overflow-y: auto;
+    border: 1px solid var(--card-border);
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.empty-state {
+    color: var(--text-muted);
+    font-style: italic;
+    font-size: 0.9rem;
+    text-align: center;
+    padding: 2rem 0;
+}
+
+/* Retrieved Docs UI */
+.doc-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    padding: 0.75rem 1rem;
+}
+.doc-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    font-size: 0.85rem;
+}
+.doc-id { color: #a78bfa; font-weight: 600; }
+.doc-score { opacity: 0.8; }
+.doc-text { font-size: 0.9rem; color: #d1d5db; line-height: 1.4; }
+
+/* Trace Diagnostics UI */
+.trace-overview {
+    display: flex;
+    gap: 1.5rem;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 0.75rem;
+    border-radius: 6px;
+    margin-bottom: 0.5rem;
+}
+.metric .label { color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; margin-right: 0.5rem; }
+.metric .val { font-weight: 600; font-family: 'Fira Code', monospace; font-size: 0.85rem; }
+
+.spans-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+.span-item {
+    background: rgba(255, 255, 255, 0.05);
+    border-left: 3px solid var(--primary);
+    border-radius: 4px;
+    padding: 0.75rem;
+}
+.span-item.status-error { border-left-color: var(--fail); }
+.span-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.25rem;
+}
+.span-name { font-weight: 600; color: #fff; font-size: 0.9rem; }
+.span-type { color: var(--text-muted); font-size: 0.75rem; font-weight: 400; }
+.span-latency { font-family: 'Fira Code', monospace; color: #34d399; font-size: 0.85rem; }
+.span-eval {
+    margin-top: 0.5rem;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 0.5rem;
+    border-radius: 4px;
+}
+.eval-badge { font-size: 0.75rem; font-weight: 700; padding: 0.15rem 0.5rem; border-radius: 100px; text-transform: uppercase;}
+.eval-badge.pass { background: rgba(16, 185, 129, 0.2); color: var(--success); }
+.eval-badge.fail { background: rgba(239, 68, 68, 0.2); color: var(--fail); }
+.eval-score { font-size: 0.8rem; color: var(--text-muted); }
+.span-error { color: var(--fail); font-size: 0.85rem; margin-top: 0.5rem; }
+
+/* Recent Traces Cards */
+.trace-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 6px;
+    padding: 0.75rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.trace-card:hover { background: rgba(255, 255, 255, 0.08); }
+.trace-alert { border-left: 3px solid var(--fail); }
+.trace-header { display: flex; justify-content: space-between; font-size: 0.85rem; font-family: 'Fira Code', monospace;}
+.trace-spans { color: var(--text-muted); }
+.trace-warning { font-size: 0.75rem; color: var(--fail); margin-top: 0.25rem; }

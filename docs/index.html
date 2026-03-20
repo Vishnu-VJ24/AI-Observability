@@ -56,8 +56,8 @@
                         <h2>Recent Traces</h2>
                         <button id="refreshTracesBtn" class="btn-ghost" title="Refresh Traces">↻</button>
                     </div>
-                    <div class="code-block-container">
-                        <pre><code id="tracesOutput" class="language-json">// Click refresh to load traces...</code></pre>
+                    <div class="ui-container" id="tracesOutput">
+                        <div class="empty-state">Click refresh to load trace history...</div>
                     </div>
                 </div>
             </div>
@@ -87,16 +87,16 @@
                 <!-- Retrieved Context -->
                 <div class="glass-card code-card">
                     <h2>Retrieved Documents</h2>
-                    <div class="code-block-container">
-                        <pre><code id="retrievedOutput" class="language-json">// Context will appear here</code></pre>
+                    <div class="ui-container doc-grid" id="retrievedOutput">
+                        <div class="empty-state">Awaiting pipeline execution...</div>
                     </div>
                 </div>
 
                 <!-- Diagnostics -->
                 <div class="glass-card code-card">
                     <h2>Diagnostics & Root Cause</h2>
-                    <div class="code-block-container">
-                        <pre><code id="diagnosticsOutput" class="language-json">// Diagnostics will appear here</code></pre>
+                    <div class="ui-container trace-tree" id="diagnosticsOutput">
+                        <div class="empty-state">Awaiting pipeline execution...</div>
                     </div>
                 </div>
             </div>
