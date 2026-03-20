@@ -1,8 +1,8 @@
 import chromadb
-from sentence_transformers import SentenceTransformer, util
+from sentence_transformers import SentenceTransformer
 from transformers import AutoTokenizer, T5ForConditionalGeneration
 
-from ai_observe.sdk import trace
+from ai_observe import trace
 
 CHROMA_DB_DIR = "ai_observe/chroma_db"
 COLLECTION_NAME = "ai_observability_corpus"
@@ -47,7 +47,7 @@ def get_chroma_collection():
     return _chroma_collection
 
 
-@trace
+@trace(span_type="retrieval")
 def retrieve(query, top_k=3):
     collection = get_chroma_collection()
     model = get_embedding_model()
@@ -77,7 +77,7 @@ def retrieve(query, top_k=3):
     return mapped_results
 
 
-@trace
+@trace(span_type="generation", evaluate_grounding=True)
 def generate_answer(query, retrieved):
     tokenizer, model = get_generation_model_and_tokenizer()
 
@@ -101,45 +101,15 @@ def generate_answer(query, retrieved):
     return generated.strip()
 
 
-@trace
-def judge_grounding(answer, retrieved):
-    # evaluate based on embedding similarity of answer to context
-    model = get_embedding_model()
-
-    context = " ".join([doc["text"] for doc in retrieved])
-    if not context:
-        return {
-            "verdict": "fail",
-            "score": 0.0,
-            "reason": "No context retrieved"
-        }
-
-    answer_embedding = model.encode(answer)
-    context_embedding = model.encode(context)
-
-    score = float(util.cos_sim(answer_embedding, context_embedding)[0][0])
-
-    verdict = "pass" if score > 0.4 else "fail"
-    reason = (
-        "Embedding similarity > 0.4 between answer and context"
-        if verdict == "pass" else "Low semantic overlap with context"
-    )
-    return {
-        "verdict": verdict,
-        "score": score,
-        "reason": reason
-    }
-
-
-@trace
+@trace(span_type="generic")
 def run_pipeline(query):
     retrieved = retrieve(query)
     answer = generate_answer(query, retrieved)
-    judgment = judge_grounding(answer, retrieved)
 
+    # Magic! Notice we do not run any hallucination checks here.
+    # The ai_observe wrapper automatically grades the generation span behind the scenes.
     return {
         "query": query,
         "retrieved": retrieved,
-        "answer": answer,
-        "judgment": judgment
+        "answer": answer
     }

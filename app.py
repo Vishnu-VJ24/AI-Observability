@@ -1,25 +1,50 @@
 import gradio as gr
 from ai_observe.pipeline import run_pipeline
-from ai_observe.analyzer import analyze_trace
 import json
 import os
 
+# 1. Initialize our shiny new global AI Observability SDK
+import ai_observe
+ai_observe.init("demo_app", destination="local")
+
+# Auto-build ChromaDB if it doesn't exist (crucial for Hugging Face Spaces startup)
+if not os.path.exists("ai_observe/chroma_db"):
+    print("ChromaDB not found. Generating embeddings automatically...")
+    from compute_embeddings import compute_embeddings
+    compute_embeddings()
 
 def process_query(query):
     try:
         if not query.strip():
             return "Please enter a query.", "", "", "No data"
 
+        # 2. Run the stripped-down logic pipeline
         result = run_pipeline(query)
-        analysis = analyze_trace(result)
+        
+        # 3. Prove the Observability works: Read the pure telemetry log to get insights!
+        log_file = "logs.json"
+        diagnostics_json = "No traces logged."
+        verdict = "Verdict: Unknown"
+        
+        if os.path.exists(log_file):
+            with open(log_file, "r") as f:
+                traces = json.load(f)
+            
+            latest_trace = traces[-1]
+            diagnostics_json = json.dumps(latest_trace, indent=2)
+            
+            # Extract auto-evaluation metric from the generation span
+            spans = latest_trace.get("spans", [])
+            gen_span = next((s for s in spans if s.get("span_type") == "generation"), None)
+            
+            if gen_span and "evaluation" in gen_span:
+                eval_data = gen_span["evaluation"]
+                is_grounded = eval_data.get("grounded", False)
+                score = eval_data.get("score", 0.0)
+                verdict = f"Verdict: {'Pass' if is_grounded else 'Fail'} (Score: {score:.2f})"
 
         retrieved_text = json.dumps(result["retrieved"], indent=2)
         answer = result["answer"]
-        vdict = result['judgment']['verdict']
-        vscore = result['judgment']['score']
-        verdict = f"Verdict: {vdict} (Score: {vscore:.2f})"
-
-        diagnostics_json = json.dumps(analysis, indent=2)
 
         return retrieved_text, answer, verdict, diagnostics_json
     except Exception as e:
@@ -34,7 +59,7 @@ def process_query(query):
 
 def get_latest_traces():
     try:
-        trace_file = "ai_observe/traces.json"
+        trace_file = "logs.json"
         if os.path.exists(trace_file):
             with open(trace_file, "r") as f:
                 traces = json.load(f)

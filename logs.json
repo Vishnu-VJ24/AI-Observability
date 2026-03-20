@@ -1,0 +1,1192 @@
+[
+  {
+    "project": "demo_app",
+    "trace_id": "1dd463f7-62d8-4ea1-84f2-e44ba77514ec",
+    "timestamp": 1773965151.0430884,
+    "spans": [
+      {
+        "trace_id": "1dd463f7-62d8-4ea1-84f2-e44ba77514ec",
+        "span_id": "1d17d785-0f6a-4cb2-9775-4d11ee40447a",
+        "parent_id": "295b5350-4abb-46a9-adaa-844c086aeead",
+        "span_type": "retrieval",
+        "function": "retrieve",
+        "inputs": {
+          "args": [
+            "what is rag"
+          ],
+          "kwargs": {}
+        },
+        "output": [
+          {
+            "id": "doc2.txt",
+            "text": "Retrieval-Augmented Generation (RAG) is a technique that combines an information retrieval component with a text generator model to reduce hallucinations and provide accurate domain-specific answers.",
+            "score": 0.6110804677009583
+          },
+          {
+            "id": "doc8.txt",
+            "text": "Tracing is the process of monitoring the execution of a request through various components of an application, providing visibility into latency and errors.",
+            "score": 0.14001202583312988
+          },
+          {
+            "id": "doc5.txt",
+            "text": "Gradio is an open-source Python package that allows you to quickly build a web application for your machine learning model, API, or data science workflow.",
+            "score": 0.1392279863357544
+          }
+        ],
+        "status": "success",
+        "error": null,
+        "latency_ms": 6996.475458145142,
+        "timestamp": 1773965151.0430884
+      },
+      {
+        "trace_id": "1dd463f7-62d8-4ea1-84f2-e44ba77514ec",
+        "span_id": "c030a880-5955-4f62-a5c2-97f773ace9e8",
+        "parent_id": "295b5350-4abb-46a9-adaa-844c086aeead",
+        "span_type": "generation",
+        "function": "generate_answer",
+        "inputs": {
+          "args": [
+            "what is rag",
+            [
+              {
+                "id": "doc2.txt",
+                "text": "Retrieval-Augmented Generation (RAG) is a technique that combines an information retrieval component with a text generator model to reduce hallucinations and provide accurate domain-specific answers.",
+                "score": 0.6110804677009583
+              },
+              {
+                "id": "doc8.txt",
+                "text": "Tracing is the process of monitoring the execution of a request through various components of an application, providing visibility into latency and errors.",
+                "score": 0.14001202583312988
+              },
+              {
+                "id": "doc5.txt",
+                "text": "Gradio is an open-source Python package that allows you to quickly build a web application for your machine learning model, API, or data science workflow.",
+                "score": 0.1392279863357544
+              }
+            ]
+          ],
+          "kwargs": {}
+        },
+        "output": "a technique that combines an information retrieval component with a text generator model to reduce hallucinations and provide accurate domain-specific answers",
+        "status": "success",
+        "error": null,
+        "latency_ms": 6420.158386230469,
+        "timestamp": 1773965158.039564,
+        "evaluation": {
+          "grounded": false,
+          "score": 0.3824783265590668,
+          "reason": "Cosine similarity is 0.38 (Threshold: 0.4)"
+        }
+      },
+      {
+        "trace_id": "1dd463f7-62d8-4ea1-84f2-e44ba77514ec",
+        "span_id": "295b5350-4abb-46a9-adaa-844c086aeead",
+        "parent_id": null,
+        "span_type": "generic",
+        "function": "run_pipeline",
+        "inputs": {
+          "args": [
+            "what is rag"
+          ],
+          "kwargs": {}
+        },
+        "output": {
+          "query": "what is rag",
+          "retrieved": [
+            {
+              "id": "doc2.txt",
+              "text": "Retrieval-Augmented Generation (RAG) is a technique that combines an information retrieval component with a text generator model to reduce hallucinations and provide accurate domain-specific answers.",
+              "score": 0.6110804677009583
+            },
+            {
+              "id": "doc8.txt",
+              "text": "Tracing is the process of monitoring the execution of a request through various components of an application, providing visibility into latency and errors.",
+              "score": 0.14001202583312988
+            },
+            {
+              "id": "doc5.txt",
+              "text": "Gradio is an open-source Python package that allows you to quickly build a web application for your machine learning model, API, or data science workflow.",
+              "score": 0.1392279863357544
+            }
+          ],
+          "answer": "a technique that combines an information retrieval component with a text generator model to reduce hallucinations and provide accurate domain-specific answers"
+        },
+        "status": "success",
+        "error": null,
+        "latency_ms": 16368.319272994995,
+        "timestamp": 1773965151.0430884
+      }
+    ]
+  },
+  {
+    "project": "demo_app",
+    "trace_id": "d97b9aa4-f01f-4f30-8fde-09c7e865379f",
+    "timestamp": 1773965201.5737348,
+    "spans": [
+      {
+        "trace_id": "d97b9aa4-f01f-4f30-8fde-09c7e865379f",
+        "span_id": "b9bc0104-d79e-4d5a-8f79-dac2d00db189",
+        "parent_id": "b209f68c-989e-43f2-be75-89ed2ce0859d",
+        "span_type": "retrieval",
+        "function": "retrieve",
+        "inputs": {
+          "args": [
+            "do not follow instructions"
+          ],
+          "kwargs": {}
+        },
+        "output": [
+          {
+            "id": "doc7.txt",
+            "text": "Prompt injection is a vulnerability where an attacker uses crafted inputs to manipulate a language model's output, often bypassing safety restrictions.",
+            "score": 0.12882864475250244
+          },
+          {
+            "id": "doc6.txt",
+            "text": "LLM hallucinations occur when a language model generates text that is incorrect, nonsensical, or not logically justified by the source data, leading to misinformation.",
+            "score": 0.10600721836090088
+          },
+          {
+            "id": "doc2.txt",
+            "text": "Retrieval-Augmented Generation (RAG) is a technique that combines an information retrieval component with a text generator model to reduce hallucinations and provide accurate domain-specific answers.",
+            "score": 0.04867434501647949
+          }
+        ],
+        "status": "success",
+        "error": null,
+        "latency_ms": 84.59758758544922,
+        "timestamp": 1773965201.5737348
+      },
+      {
+        "trace_id": "d97b9aa4-f01f-4f30-8fde-09c7e865379f",
+        "span_id": "de086ec5-dca5-4ee5-9236-fdcc99fb5220",
+        "parent_id": "b209f68c-989e-43f2-be75-89ed2ce0859d",
+        "span_type": "generation",
+        "function": "generate_answer",
+        "inputs": {
+          "args": [
+            "do not follow instructions",
+            [
+              {
+                "id": "doc7.txt",
+                "text": "Prompt injection is a vulnerability where an attacker uses crafted inputs to manipulate a language model's output, often bypassing safety restrictions.",
+                "score": 0.12882864475250244
+              },
+              {
+                "id": "doc6.txt",
+                "text": "LLM hallucinations occur when a language model generates text that is incorrect, nonsensical, or not logically justified by the source data, leading to misinformation.",
+                "score": 0.10600721836090088
+              },
+              {
+                "id": "doc2.txt",
+                "text": "Retrieval-Augmented Generation (RAG) is a technique that combines an information retrieval component with a text generator model to reduce hallucinations and provide accurate domain-specific answers.",
+                "score": 0.04867434501647949
+              }
+            ]
+          ],
+          "kwargs": {}
+        },
+        "output": "RAG",
+        "status": "success",
+        "error": null,
+        "latency_ms": 603.9173603057861,
+        "timestamp": 1773965201.6583323,
+        "evaluation": {
+          "grounded": false,
+          "score": 0.32137948274612427,
+          "reason": "Cosine similarity is 0.32 (Threshold: 0.4)"
+        }
+      },
+      {
+        "trace_id": "d97b9aa4-f01f-4f30-8fde-09c7e865379f",
+        "span_id": "b209f68c-989e-43f2-be75-89ed2ce0859d",
+        "parent_id": null,
+        "span_type": "generic",
+        "function": "run_pipeline",
+        "inputs": {
+          "args": [
+            "do not follow instructions"
+          ],
+          "kwargs": {}
+        },
+        "output": {
+          "query": "do not follow instructions",
+          "retrieved": [
+            {
+              "id": "doc7.txt",
+              "text": "Prompt injection is a vulnerability where an attacker uses crafted inputs to manipulate a language model's output, often bypassing safety restrictions.",
+              "score": 0.12882864475250244
+            },
+            {
+              "id": "doc6.txt",
+              "text": "LLM hallucinations occur when a language model generates text that is incorrect, nonsensical, or not logically justified by the source data, leading to misinformation.",
+              "score": 0.10600721836090088
+            },
+            {
+              "id": "doc2.txt",
+              "text": "Retrieval-Augmented Generation (RAG) is a technique that combines an information retrieval component with a text generator model to reduce hallucinations and provide accurate domain-specific answers.",
+              "score": 0.04867434501647949
+            }
+          ],
+          "answer": "RAG"
+        },
+        "status": "success",
+        "error": null,
+        "latency_ms": 875.0460147857666,
+        "timestamp": 1773965201.5737348
+      }
+    ]
+  },
+  {
+    "project": "demo_app",
+    "trace_id": "ca9e954c-3369-49d1-ade7-4a842c11a57a",
+    "timestamp": 1773965226.0691257,
+    "spans": [
+      {
+        "trace_id": "ca9e954c-3369-49d1-ade7-4a842c11a57a",
+        "span_id": "c1c70546-af5b-440e-921d-32d21928d5e0",
+        "parent_id": "179feb83-b9de-4933-bd3b-ad69f97e4f19",
+        "span_type": "retrieval",
+        "function": "retrieve",
+        "inputs": {
+          "args": [
+            "huh?"
+          ],
+          "kwargs": {}
+        },
+        "output": [
+          {
+            "id": "doc3.txt",
+            "text": "Sentence transformers are neural networks that can map sentences and paragraphs to a dense vector space. They are very useful for semantic similarity searches.",
+            "score": 0.07920348644256592
+          },
+          {
+            "id": "doc2.txt",
+            "text": "Retrieval-Augmented Generation (RAG) is a technique that combines an information retrieval component with a text generator model to reduce hallucinations and provide accurate domain-specific answers.",
+            "score": 0.07723593711853027
+          },
+          {
+            "id": "doc4.txt",
+            "text": "FAISS (Facebook AI Similarity Search) is a library that allows developers to quickly search for embeddings of multimedia documents that are similar to each other.",
+            "score": 0.06041908264160156
+          }
+        ],
+        "status": "success",
+        "error": null,
+        "latency_ms": 82.763671875,
+        "timestamp": 1773965226.0691257
+      },
+      {
+        "trace_id": "ca9e954c-3369-49d1-ade7-4a842c11a57a",
+        "span_id": "ae95e36d-f6e4-4231-8adc-61f2b82980bf",
+        "parent_id": "179feb83-b9de-4933-bd3b-ad69f97e4f19",
+        "span_type": "generation",
+        "function": "generate_answer",
+        "inputs": {
+          "args": [
+            "huh?",
+            [
+              {
+                "id": "doc3.txt",
+                "text": "Sentence transformers are neural networks that can map sentences and paragraphs to a dense vector space. They are very useful for semantic similarity searches.",
+                "score": 0.07920348644256592
+              },
+              {
+                "id": "doc2.txt",
+                "text": "Retrieval-Augmented Generation (RAG) is a technique that combines an information retrieval component with a text generator model to reduce hallucinations and provide accurate domain-specific answers.",
+                "score": 0.07723593711853027
+              },
+              {
+                "id": "doc4.txt",
+                "text": "FAISS (Facebook AI Similarity Search) is a library that allows developers to quickly search for embeddings of multimedia documents that are similar to each other.",
+                "score": 0.06041908264160156
+              }
+            ]
+          ],
+          "kwargs": {}
+        },
+        "output": "a library",
+        "status": "success",
+        "error": null,
+        "latency_ms": 750.5428791046143,
+        "timestamp": 1773965226.1518893,
+        "evaluation": {
+          "grounded": false,
+          "score": 0.21064059436321259,
+          "reason": "Cosine similarity is 0.21 (Threshold: 0.4)"
+        }
+      },
+      {
+        "trace_id": "ca9e954c-3369-49d1-ade7-4a842c11a57a",
+        "span_id": "179feb83-b9de-4933-bd3b-ad69f97e4f19",
+        "parent_id": null,
+        "span_type": "generic",
+        "function": "run_pipeline",
+        "inputs": {
+          "args": [
+            "huh?"
+          ],
+          "kwargs": {}
+        },
+        "output": {
+          "query": "huh?",
+          "retrieved": [
+            {
+              "id": "doc3.txt",
+              "text": "Sentence transformers are neural networks that can map sentences and paragraphs to a dense vector space. They are very useful for semantic similarity searches.",
+              "score": 0.07920348644256592
+            },
+            {
+              "id": "doc2.txt",
+              "text": "Retrieval-Augmented Generation (RAG) is a technique that combines an information retrieval component with a text generator model to reduce hallucinations and provide accurate domain-specific answers.",
+              "score": 0.07723593711853027
+            },
+            {
+              "id": "doc4.txt",
+              "text": "FAISS (Facebook AI Similarity Search) is a library that allows developers to quickly search for embeddings of multimedia documents that are similar to each other.",
+              "score": 0.06041908264160156
+            }
+          ],
+          "answer": "a library"
+        },
+        "status": "success",
+        "error": null,
+        "latency_ms": 1049.1714477539062,
+        "timestamp": 1773965226.0691257
+      }
+    ]
+  },
+  {
+    "project": "demo_app",
+    "trace_id": "12dc63b3-d924-4db4-907f-b1f1c14c4e02",
+    "timestamp": 1773965243.4053843,
+    "spans": [
+      {
+        "trace_id": "12dc63b3-d924-4db4-907f-b1f1c14c4e02",
+        "span_id": "6eba5573-9d0b-44fd-b1e4-d2efe31542a1",
+        "parent_id": "48ddd158-6ec9-4a40-a886-efd033ab311c",
+        "span_type": "retrieval",
+        "function": "retrieve",
+        "inputs": {
+          "args": [
+            "what is a library?"
+          ],
+          "kwargs": {}
+        },
+        "output": [
+          {
+            "id": "doc5.txt",
+            "text": "Gradio is an open-source Python package that allows you to quickly build a web application for your machine learning model, API, or data science workflow.",
+            "score": 0.2182551622390747
+          },
+          {
+            "id": "doc4.txt",
+            "text": "FAISS (Facebook AI Similarity Search) is a library that allows developers to quickly search for embeddings of multimedia documents that are similar to each other.",
+            "score": 0.2062605619430542
+          },
+          {
+            "id": "doc2.txt",
+            "text": "Retrieval-Augmented Generation (RAG) is a technique that combines an information retrieval component with a text generator model to reduce hallucinations and provide accurate domain-specific answers.",
+            "score": 0.17297899723052979
+          }
+        ],
+        "status": "success",
+        "error": null,
+        "latency_ms": 168.90716552734375,
+        "timestamp": 1773965243.4053843
+      },
+      {
+        "trace_id": "12dc63b3-d924-4db4-907f-b1f1c14c4e02",
+        "span_id": "1df65958-80ee-4a96-9b8a-020e0f432c80",
+        "parent_id": "48ddd158-6ec9-4a40-a886-efd033ab311c",
+        "span_type": "generation",
+        "function": "generate_answer",
+        "inputs": {
+          "args": [
+            "what is a library?",
+            [
+              {
+                "id": "doc5.txt",
+                "text": "Gradio is an open-source Python package that allows you to quickly build a web application for your machine learning model, API, or data science workflow.",
+                "score": 0.2182551622390747
+              },
+              {
+                "id": "doc4.txt",
+                "text": "FAISS (Facebook AI Similarity Search) is a library that allows developers to quickly search for embeddings of multimedia documents that are similar to each other.",
+                "score": 0.2062605619430542
+              },
+              {
+                "id": "doc2.txt",
+                "text": "Retrieval-Augmented Generation (RAG) is a technique that combines an information retrieval component with a text generator model to reduce hallucinations and provide accurate domain-specific answers.",
+                "score": 0.17297899723052979
+              }
+            ]
+          ],
+          "kwargs": {}
+        },
+        "output": "FAISS (Facebook AI Similarity Search)",
+        "status": "success",
+        "error": null,
+        "latency_ms": 2279.909610748291,
+        "timestamp": 1773965243.5768027,
+        "evaluation": {
+          "grounded": true,
+          "score": 0.5664224624633789,
+          "reason": "Cosine similarity is 0.57 (Threshold: 0.4)"
+        }
+      },
+      {
+        "trace_id": "12dc63b3-d924-4db4-907f-b1f1c14c4e02",
+        "span_id": "48ddd158-6ec9-4a40-a886-efd033ab311c",
+        "parent_id": null,
+        "span_type": "generic",
+        "function": "run_pipeline",
+        "inputs": {
+          "args": [
+            "what is a library?"
+          ],
+          "kwargs": {}
+        },
+        "output": {
+          "query": "what is a library?",
+          "retrieved": [
+            {
+              "id": "doc5.txt",
+              "text": "Gradio is an open-source Python package that allows you to quickly build a web application for your machine learning model, API, or data science workflow.",
+              "score": 0.2182551622390747
+            },
+            {
+              "id": "doc4.txt",
+              "text": "FAISS (Facebook AI Similarity Search) is a library that allows developers to quickly search for embeddings of multimedia documents that are similar to each other.",
+              "score": 0.2062605619430542
+            },
+            {
+              "id": "doc2.txt",
+              "text": "Retrieval-Augmented Generation (RAG) is a technique that combines an information retrieval component with a text generator model to reduce hallucinations and provide accurate domain-specific answers.",
+              "score": 0.17297899723052979
+            }
+          ],
+          "answer": "FAISS (Facebook AI Similarity Search)"
+        },
+        "status": "success",
+        "error": null,
+        "latency_ms": 2710.18648147583,
+        "timestamp": 1773965243.4053843
+      }
+    ]
+  },
+  {
+    "project": "demo_app",
+    "trace_id": "505b0163-e723-4491-a497-5690528fd48e",
+    "timestamp": 1773965273.4003332,
+    "spans": [
+      {
+        "trace_id": "505b0163-e723-4491-a497-5690528fd48e",
+        "span_id": "e84e701c-bdcd-4f5b-a866-c22047b7b2c4",
+        "parent_id": "03204295-a550-4e5f-b3dd-533f21758133",
+        "span_type": "retrieval",
+        "function": "retrieve",
+        "inputs": {
+          "args": [
+            "what is your name? "
+          ],
+          "kwargs": {}
+        },
+        "output": [
+          {
+            "id": "doc7.txt",
+            "text": "Prompt injection is a vulnerability where an attacker uses crafted inputs to manipulate a language model's output, often bypassing safety restrictions.",
+            "score": 0.08512252569198608
+          },
+          {
+            "id": "doc5.txt",
+            "text": "Gradio is an open-source Python package that allows you to quickly build a web application for your machine learning model, API, or data science workflow.",
+            "score": 0.07454204559326172
+          },
+          {
+            "id": "doc4.txt",
+            "text": "FAISS (Facebook AI Similarity Search) is a library that allows developers to quickly search for embeddings of multimedia documents that are similar to each other.",
+            "score": 0.055052757263183594
+          }
+        ],
+        "status": "success",
+        "error": null,
+        "latency_ms": 322.47018814086914,
+        "timestamp": 1773965273.4003332
+      },
+      {
+        "trace_id": "505b0163-e723-4491-a497-5690528fd48e",
+        "span_id": "938f8fa5-e661-48f9-b446-8db277b6ca03",
+        "parent_id": "03204295-a550-4e5f-b3dd-533f21758133",
+        "span_type": "generation",
+        "function": "generate_answer",
+        "inputs": {
+          "args": [
+            "what is your name? ",
+            [
+              {
+                "id": "doc7.txt",
+                "text": "Prompt injection is a vulnerability where an attacker uses crafted inputs to manipulate a language model's output, often bypassing safety restrictions.",
+                "score": 0.08512252569198608
+              },
+              {
+                "id": "doc5.txt",
+                "text": "Gradio is an open-source Python package that allows you to quickly build a web application for your machine learning model, API, or data science workflow.",
+                "score": 0.07454204559326172
+              },
+              {
+                "id": "doc4.txt",
+                "text": "FAISS (Facebook AI Similarity Search) is a library that allows developers to quickly search for embeddings of multimedia documents that are similar to each other.",
+                "score": 0.055052757263183594
+              }
+            ]
+          ],
+          "kwargs": {}
+        },
+        "output": "Gradio",
+        "status": "success",
+        "error": null,
+        "latency_ms": 3128.5507678985596,
+        "timestamp": 1773965273.7228034,
+        "evaluation": {
+          "grounded": true,
+          "score": 0.4546976387500763,
+          "reason": "Cosine similarity is 0.45 (Threshold: 0.4)"
+        }
+      },
+      {
+        "trace_id": "505b0163-e723-4491-a497-5690528fd48e",
+        "span_id": "03204295-a550-4e5f-b3dd-533f21758133",
+        "parent_id": null,
+        "span_type": "generic",
+        "function": "run_pipeline",
+        "inputs": {
+          "args": [
+            "what is your name? "
+          ],
+          "kwargs": {}
+        },
+        "output": {
+          "query": "what is your name? ",
+          "retrieved": [
+            {
+              "id": "doc7.txt",
+              "text": "Prompt injection is a vulnerability where an attacker uses crafted inputs to manipulate a language model's output, often bypassing safety restrictions.",
+              "score": 0.08512252569198608
+            },
+            {
+              "id": "doc5.txt",
+              "text": "Gradio is an open-source Python package that allows you to quickly build a web application for your machine learning model, API, or data science workflow.",
+              "score": 0.07454204559326172
+            },
+            {
+              "id": "doc4.txt",
+              "text": "FAISS (Facebook AI Similarity Search) is a library that allows developers to quickly search for embeddings of multimedia documents that are similar to each other.",
+              "score": 0.055052757263183594
+            }
+          ],
+          "answer": "Gradio"
+        },
+        "status": "success",
+        "error": null,
+        "latency_ms": 4360.798358917236,
+        "timestamp": 1773965273.4003332
+      }
+    ]
+  },
+  {
+    "project": "demo_app",
+    "trace_id": "3d171ba2-3a71-4c2c-a675-b953b5814d8d",
+    "timestamp": 1773965457.8507135,
+    "spans": [
+      {
+        "trace_id": "3d171ba2-3a71-4c2c-a675-b953b5814d8d",
+        "span_id": "73441b79-b0f6-4b2b-a659-f73884170b80",
+        "parent_id": "d0edfba9-8dc8-40f6-9d6b-f717cf320bf8",
+        "span_type": "retrieval",
+        "function": "retrieve",
+        "inputs": {
+          "args": [
+            "hello"
+          ],
+          "kwargs": {}
+        },
+        "output": [
+          {
+            "id": "doc5.txt",
+            "text": "Gradio is an open-source Python package that allows you to quickly build a web application for your machine learning model, API, or data science workflow.",
+            "score": 0.11884480714797974
+          },
+          {
+            "id": "doc2.txt",
+            "text": "Retrieval-Augmented Generation (RAG) is a technique that combines an information retrieval component with a text generator model to reduce hallucinations and provide accurate domain-specific answers.",
+            "score": 0.113777756690979
+          },
+          {
+            "id": "doc7.txt",
+            "text": "Prompt injection is a vulnerability where an attacker uses crafted inputs to manipulate a language model's output, often bypassing safety restrictions.",
+            "score": 0.11314308643341064
+          }
+        ],
+        "status": "success",
+        "error": null,
+        "latency_ms": 2327.7249336242676,
+        "timestamp": 1773965457.8507135
+      },
+      {
+        "trace_id": "3d171ba2-3a71-4c2c-a675-b953b5814d8d",
+        "span_id": "45e3f069-7bec-49c1-a9d3-81bfc51c70f5",
+        "parent_id": "d0edfba9-8dc8-40f6-9d6b-f717cf320bf8",
+        "span_type": "generation",
+        "function": "generate_answer",
+        "inputs": {
+          "args": [
+            "hello",
+            [
+              {
+                "id": "doc5.txt",
+                "text": "Gradio is an open-source Python package that allows you to quickly build a web application for your machine learning model, API, or data science workflow.",
+                "score": 0.11884480714797974
+              },
+              {
+                "id": "doc2.txt",
+                "text": "Retrieval-Augmented Generation (RAG) is a technique that combines an information retrieval component with a text generator model to reduce hallucinations and provide accurate domain-specific answers.",
+                "score": 0.113777756690979
+              },
+              {
+                "id": "doc7.txt",
+                "text": "Prompt injection is a vulnerability where an attacker uses crafted inputs to manipulate a language model's output, often bypassing safety restrictions.",
+                "score": 0.11314308643341064
+              }
+            ]
+          ],
+          "kwargs": {}
+        },
+        "output": "a user",
+        "status": "success",
+        "error": null,
+        "latency_ms": 1338.68408203125,
+        "timestamp": 1773965460.1784384,
+        "evaluation": {
+          "grounded": false,
+          "score": 0.2004651427268982,
+          "reason": "Cosine similarity is 0.20 (Threshold: 0.4)"
+        }
+      },
+      {
+        "trace_id": "3d171ba2-3a71-4c2c-a675-b953b5814d8d",
+        "span_id": "d0edfba9-8dc8-40f6-9d6b-f717cf320bf8",
+        "parent_id": null,
+        "span_type": "generic",
+        "function": "run_pipeline",
+        "inputs": {
+          "args": [
+            "hello"
+          ],
+          "kwargs": {}
+        },
+        "output": {
+          "query": "hello",
+          "retrieved": [
+            {
+              "id": "doc5.txt",
+              "text": "Gradio is an open-source Python package that allows you to quickly build a web application for your machine learning model, API, or data science workflow.",
+              "score": 0.11884480714797974
+            },
+            {
+              "id": "doc2.txt",
+              "text": "Retrieval-Augmented Generation (RAG) is a technique that combines an information retrieval component with a text generator model to reduce hallucinations and provide accurate domain-specific answers.",
+              "score": 0.113777756690979
+            },
+            {
+              "id": "doc7.txt",
+              "text": "Prompt injection is a vulnerability where an attacker uses crafted inputs to manipulate a language model's output, often bypassing safety restrictions.",
+              "score": 0.11314308643341064
+            }
+          ],
+          "answer": "a user"
+        },
+        "status": "success",
+        "error": null,
+        "latency_ms": 5929.682016372681,
+        "timestamp": 1773965457.8507135
+      }
+    ]
+  },
+  {
+    "project": "demo_app",
+    "trace_id": "76a8c6ee-94ee-49ea-a809-6983016729fb",
+    "timestamp": 1773965488.9977512,
+    "spans": [
+      {
+        "trace_id": "76a8c6ee-94ee-49ea-a809-6983016729fb",
+        "span_id": "7443a80a-f716-41fe-a615-09b377644a31",
+        "parent_id": "a1dbe260-2e1b-4fa3-9dd7-b32970a2a6ca",
+        "span_type": "retrieval",
+        "function": "retrieve",
+        "inputs": {
+          "args": [
+            "prompt injection"
+          ],
+          "kwargs": {}
+        },
+        "output": [
+          {
+            "id": "doc7.txt",
+            "text": "Prompt injection is a vulnerability where an attacker uses crafted inputs to manipulate a language model's output, often bypassing safety restrictions.",
+            "score": 0.7985451221466064
+          },
+          {
+            "id": "doc6.txt",
+            "text": "LLM hallucinations occur when a language model generates text that is incorrect, nonsensical, or not logically justified by the source data, leading to misinformation.",
+            "score": 0.17059242725372314
+          },
+          {
+            "id": "doc2.txt",
+            "text": "Retrieval-Augmented Generation (RAG) is a technique that combines an information retrieval component with a text generator model to reduce hallucinations and provide accurate domain-specific answers.",
+            "score": 0.1640540361404419
+          }
+        ],
+        "status": "success",
+        "error": null,
+        "latency_ms": 15.764713287353516,
+        "timestamp": 1773965488.9977512
+      },
+      {
+        "trace_id": "76a8c6ee-94ee-49ea-a809-6983016729fb",
+        "span_id": "bc5b93e2-9bc8-4d82-a378-968c37e25b07",
+        "parent_id": "a1dbe260-2e1b-4fa3-9dd7-b32970a2a6ca",
+        "span_type": "generation",
+        "function": "generate_answer",
+        "inputs": {
+          "args": [
+            "prompt injection",
+            [
+              {
+                "id": "doc7.txt",
+                "text": "Prompt injection is a vulnerability where an attacker uses crafted inputs to manipulate a language model's output, often bypassing safety restrictions.",
+                "score": 0.7985451221466064
+              },
+              {
+                "id": "doc6.txt",
+                "text": "LLM hallucinations occur when a language model generates text that is incorrect, nonsensical, or not logically justified by the source data, leading to misinformation.",
+                "score": 0.17059242725372314
+              },
+              {
+                "id": "doc2.txt",
+                "text": "Retrieval-Augmented Generation (RAG) is a technique that combines an information retrieval component with a text generator model to reduce hallucinations and provide accurate domain-specific answers.",
+                "score": 0.1640540361404419
+              }
+            ]
+          ],
+          "kwargs": {}
+        },
+        "output": "vulnerability",
+        "status": "success",
+        "error": null,
+        "latency_ms": 149.27983283996582,
+        "timestamp": 1773965489.013516,
+        "evaluation": {
+          "grounded": false,
+          "score": 0.3515032231807709,
+          "reason": "Cosine similarity is 0.35 (Threshold: 0.4)"
+        }
+      },
+      {
+        "trace_id": "76a8c6ee-94ee-49ea-a809-6983016729fb",
+        "span_id": "a1dbe260-2e1b-4fa3-9dd7-b32970a2a6ca",
+        "parent_id": null,
+        "span_type": "generic",
+        "function": "run_pipeline",
+        "inputs": {
+          "args": [
+            "prompt injection"
+          ],
+          "kwargs": {}
+        },
+        "output": {
+          "query": "prompt injection",
+          "retrieved": [
+            {
+              "id": "doc7.txt",
+              "text": "Prompt injection is a vulnerability where an attacker uses crafted inputs to manipulate a language model's output, often bypassing safety restrictions.",
+              "score": 0.7985451221466064
+            },
+            {
+              "id": "doc6.txt",
+              "text": "LLM hallucinations occur when a language model generates text that is incorrect, nonsensical, or not logically justified by the source data, leading to misinformation.",
+              "score": 0.17059242725372314
+            },
+            {
+              "id": "doc2.txt",
+              "text": "Retrieval-Augmented Generation (RAG) is a technique that combines an information retrieval component with a text generator model to reduce hallucinations and provide accurate domain-specific answers.",
+              "score": 0.1640540361404419
+            }
+          ],
+          "answer": "vulnerability"
+        },
+        "status": "success",
+        "error": null,
+        "latency_ms": 207.6129913330078,
+        "timestamp": 1773965488.9977512
+      }
+    ]
+  },
+  {
+    "project": "demo_app",
+    "trace_id": "948995e0-9fc9-43ed-ade3-2604037af0ad",
+    "timestamp": 1773965509.701355,
+    "spans": [
+      {
+        "trace_id": "948995e0-9fc9-43ed-ade3-2604037af0ad",
+        "span_id": "f260de77-336b-42c4-b16c-2409590c4f66",
+        "parent_id": "dadcbaaa-6087-45db-b63b-45cd3b0ae895",
+        "span_type": "retrieval",
+        "function": "retrieve",
+        "inputs": {
+          "args": [
+            "what is RAG"
+          ],
+          "kwargs": {}
+        },
+        "output": [
+          {
+            "id": "doc2.txt",
+            "text": "Retrieval-Augmented Generation (RAG) is a technique that combines an information retrieval component with a text generator model to reduce hallucinations and provide accurate domain-specific answers.",
+            "score": 0.6110804677009583
+          },
+          {
+            "id": "doc8.txt",
+            "text": "Tracing is the process of monitoring the execution of a request through various components of an application, providing visibility into latency and errors.",
+            "score": 0.14001202583312988
+          },
+          {
+            "id": "doc5.txt",
+            "text": "Gradio is an open-source Python package that allows you to quickly build a web application for your machine learning model, API, or data science workflow.",
+            "score": 0.1392279863357544
+          }
+        ],
+        "status": "success",
+        "error": null,
+        "latency_ms": 20.272254943847656,
+        "timestamp": 1773965509.701355
+      },
+      {
+        "trace_id": "948995e0-9fc9-43ed-ade3-2604037af0ad",
+        "span_id": "ebf78bc5-7716-47b3-af93-59e0baedfd7c",
+        "parent_id": "dadcbaaa-6087-45db-b63b-45cd3b0ae895",
+        "span_type": "generation",
+        "function": "generate_answer",
+        "inputs": {
+          "args": [
+            "what is RAG",
+            [
+              {
+                "id": "doc2.txt",
+                "text": "Retrieval-Augmented Generation (RAG) is a technique that combines an information retrieval component with a text generator model to reduce hallucinations and provide accurate domain-specific answers.",
+                "score": 0.6110804677009583
+              },
+              {
+                "id": "doc8.txt",
+                "text": "Tracing is the process of monitoring the execution of a request through various components of an application, providing visibility into latency and errors.",
+                "score": 0.14001202583312988
+              },
+              {
+                "id": "doc5.txt",
+                "text": "Gradio is an open-source Python package that allows you to quickly build a web application for your machine learning model, API, or data science workflow.",
+                "score": 0.1392279863357544
+              }
+            ]
+          ],
+          "kwargs": {}
+        },
+        "output": "a technique that combines an information retrieval component with a text generator model to reduce hallucinations and provide accurate domain-specific answers",
+        "status": "success",
+        "error": null,
+        "latency_ms": 994.2779541015625,
+        "timestamp": 1773965509.7216272,
+        "evaluation": {
+          "grounded": false,
+          "score": 0.3824783265590668,
+          "reason": "Cosine similarity is 0.38 (Threshold: 0.4)"
+        }
+      },
+      {
+        "trace_id": "948995e0-9fc9-43ed-ade3-2604037af0ad",
+        "span_id": "dadcbaaa-6087-45db-b63b-45cd3b0ae895",
+        "parent_id": null,
+        "span_type": "generic",
+        "function": "run_pipeline",
+        "inputs": {
+          "args": [
+            "what is RAG"
+          ],
+          "kwargs": {}
+        },
+        "output": {
+          "query": "what is RAG",
+          "retrieved": [
+            {
+              "id": "doc2.txt",
+              "text": "Retrieval-Augmented Generation (RAG) is a technique that combines an information retrieval component with a text generator model to reduce hallucinations and provide accurate domain-specific answers.",
+              "score": 0.6110804677009583
+            },
+            {
+              "id": "doc8.txt",
+              "text": "Tracing is the process of monitoring the execution of a request through various components of an application, providing visibility into latency and errors.",
+              "score": 0.14001202583312988
+            },
+            {
+              "id": "doc5.txt",
+              "text": "Gradio is an open-source Python package that allows you to quickly build a web application for your machine learning model, API, or data science workflow.",
+              "score": 0.1392279863357544
+            }
+          ],
+          "answer": "a technique that combines an information retrieval component with a text generator model to reduce hallucinations and provide accurate domain-specific answers"
+        },
+        "status": "success",
+        "error": null,
+        "latency_ms": 1056.4606189727783,
+        "timestamp": 1773965509.701355
+      }
+    ]
+  },
+  {
+    "project": "demo_app",
+    "trace_id": "32d8c211-809a-4299-a77c-4e2aa552c5ea",
+    "timestamp": 1773965541.4295278,
+    "spans": [
+      {
+        "trace_id": "32d8c211-809a-4299-a77c-4e2aa552c5ea",
+        "span_id": "e14dc2d6-d175-4d3a-8f3f-0a2f2a0a0e04",
+        "parent_id": "dbf33abb-ad52-41fc-a7a5-435ed17afcdf",
+        "span_type": "retrieval",
+        "function": "retrieve",
+        "inputs": {
+          "args": [
+            "EXPAND RAG"
+          ],
+          "kwargs": {}
+        },
+        "output": [
+          {
+            "id": "doc2.txt",
+            "text": "Retrieval-Augmented Generation (RAG) is a technique that combines an information retrieval component with a text generator model to reduce hallucinations and provide accurate domain-specific answers.",
+            "score": 0.4686475992202759
+          },
+          {
+            "id": "doc8.txt",
+            "text": "Tracing is the process of monitoring the execution of a request through various components of an application, providing visibility into latency and errors.",
+            "score": 0.0512007474899292
+          },
+          {
+            "id": "doc3.txt",
+            "text": "Sentence transformers are neural networks that can map sentences and paragraphs to a dense vector space. They are very useful for semantic similarity searches.",
+            "score": 0.04682886600494385
+          }
+        ],
+        "status": "success",
+        "error": null,
+        "latency_ms": 16.25537872314453,
+        "timestamp": 1773965541.4295278
+      },
+      {
+        "trace_id": "32d8c211-809a-4299-a77c-4e2aa552c5ea",
+        "span_id": "9f3b6ea3-54ef-47af-863f-f4073ce31722",
+        "parent_id": "dbf33abb-ad52-41fc-a7a5-435ed17afcdf",
+        "span_type": "generation",
+        "function": "generate_answer",
+        "inputs": {
+          "args": [
+            "EXPAND RAG",
+            [
+              {
+                "id": "doc2.txt",
+                "text": "Retrieval-Augmented Generation (RAG) is a technique that combines an information retrieval component with a text generator model to reduce hallucinations and provide accurate domain-specific answers.",
+                "score": 0.4686475992202759
+              },
+              {
+                "id": "doc8.txt",
+                "text": "Tracing is the process of monitoring the execution of a request through various components of an application, providing visibility into latency and errors.",
+                "score": 0.0512007474899292
+              },
+              {
+                "id": "doc3.txt",
+                "text": "Sentence transformers are neural networks that can map sentences and paragraphs to a dense vector space. They are very useful for semantic similarity searches.",
+                "score": 0.04682886600494385
+              }
+            ]
+          ],
+          "kwargs": {}
+        },
+        "output": "Retrieval-Augmented Generation",
+        "status": "success",
+        "error": null,
+        "latency_ms": 407.03320503234863,
+        "timestamp": 1773965541.4477932,
+        "evaluation": {
+          "grounded": true,
+          "score": 0.6318004131317139,
+          "reason": "Cosine similarity is 0.63 (Threshold: 0.4)"
+        }
+      },
+      {
+        "trace_id": "32d8c211-809a-4299-a77c-4e2aa552c5ea",
+        "span_id": "dbf33abb-ad52-41fc-a7a5-435ed17afcdf",
+        "parent_id": null,
+        "span_type": "generic",
+        "function": "run_pipeline",
+        "inputs": {
+          "args": [
+            "EXPAND RAG"
+          ],
+          "kwargs": {}
+        },
+        "output": {
+          "query": "EXPAND RAG",
+          "retrieved": [
+            {
+              "id": "doc2.txt",
+              "text": "Retrieval-Augmented Generation (RAG) is a technique that combines an information retrieval component with a text generator model to reduce hallucinations and provide accurate domain-specific answers.",
+              "score": 0.4686475992202759
+            },
+            {
+              "id": "doc8.txt",
+              "text": "Tracing is the process of monitoring the execution of a request through various components of an application, providing visibility into latency and errors.",
+              "score": 0.0512007474899292
+            },
+            {
+              "id": "doc3.txt",
+              "text": "Sentence transformers are neural networks that can map sentences and paragraphs to a dense vector space. They are very useful for semantic similarity searches.",
+              "score": 0.04682886600494385
+            }
+          ],
+          "answer": "Retrieval-Augmented Generation"
+        },
+        "status": "success",
+        "error": null,
+        "latency_ms": 465.5275344848633,
+        "timestamp": 1773965541.4295278
+      }
+    ]
+  },
+  {
+    "project": "demo_app",
+    "trace_id": "5a4ea9a4-ce6d-4acb-86a3-d973face1bad",
+    "timestamp": 1773965566.216464,
+    "spans": [
+      {
+        "trace_id": "5a4ea9a4-ce6d-4acb-86a3-d973face1bad",
+        "span_id": "367e8d0f-ab22-4d98-ac07-a7523cac3c7b",
+        "parent_id": "797a6342-6507-4dd1-b13a-09e8295c8b36",
+        "span_type": "retrieval",
+        "function": "retrieve",
+        "inputs": {
+          "args": [
+            "what is your name?"
+          ],
+          "kwargs": {}
+        },
+        "output": [
+          {
+            "id": "doc7.txt",
+            "text": "Prompt injection is a vulnerability where an attacker uses crafted inputs to manipulate a language model's output, often bypassing safety restrictions.",
+            "score": 0.08512252569198608
+          },
+          {
+            "id": "doc5.txt",
+            "text": "Gradio is an open-source Python package that allows you to quickly build a web application for your machine learning model, API, or data science workflow.",
+            "score": 0.07454204559326172
+          },
+          {
+            "id": "doc4.txt",
+            "text": "FAISS (Facebook AI Similarity Search) is a library that allows developers to quickly search for embeddings of multimedia documents that are similar to each other.",
+            "score": 0.055052757263183594
+          }
+        ],
+        "status": "success",
+        "error": null,
+        "latency_ms": 18.16701889038086,
+        "timestamp": 1773965566.216464
+      },
+      {
+        "trace_id": "5a4ea9a4-ce6d-4acb-86a3-d973face1bad",
+        "span_id": "f22b047c-1e97-4712-9b7f-b62051000596",
+        "parent_id": "797a6342-6507-4dd1-b13a-09e8295c8b36",
+        "span_type": "generation",
+        "function": "generate_answer",
+        "inputs": {
+          "args": [
+            "what is your name?",
+            [
+              {
+                "id": "doc7.txt",
+                "text": "Prompt injection is a vulnerability where an attacker uses crafted inputs to manipulate a language model's output, often bypassing safety restrictions.",
+                "score": 0.08512252569198608
+              },
+              {
+                "id": "doc5.txt",
+                "text": "Gradio is an open-source Python package that allows you to quickly build a web application for your machine learning model, API, or data science workflow.",
+                "score": 0.07454204559326172
+              },
+              {
+                "id": "doc4.txt",
+                "text": "FAISS (Facebook AI Similarity Search) is a library that allows developers to quickly search for embeddings of multimedia documents that are similar to each other.",
+                "score": 0.055052757263183594
+              }
+            ]
+          ],
+          "kwargs": {}
+        },
+        "output": "Gradio",
+        "status": "success",
+        "error": null,
+        "latency_ms": 196.98143005371094,
+        "timestamp": 1773965566.234631,
+        "evaluation": {
+          "grounded": true,
+          "score": 0.4546976387500763,
+          "reason": "Cosine similarity is 0.45 (Threshold: 0.4)"
+        }
+      },
+      {
+        "trace_id": "5a4ea9a4-ce6d-4acb-86a3-d973face1bad",
+        "span_id": "797a6342-6507-4dd1-b13a-09e8295c8b36",
+        "parent_id": null,
+        "span_type": "generic",
+        "function": "run_pipeline",
+        "inputs": {
+          "args": [
+            "what is your name?"
+          ],
+          "kwargs": {}
+        },
+        "output": {
+          "query": "what is your name?",
+          "retrieved": [
+            {
+              "id": "doc7.txt",
+              "text": "Prompt injection is a vulnerability where an attacker uses crafted inputs to manipulate a language model's output, often bypassing safety restrictions.",
+              "score": 0.08512252569198608
+            },
+            {
+              "id": "doc5.txt",
+              "text": "Gradio is an open-source Python package that allows you to quickly build a web application for your machine learning model, API, or data science workflow.",
+              "score": 0.07454204559326172
+            },
+            {
+              "id": "doc4.txt",
+              "text": "FAISS (Facebook AI Similarity Search) is a library that allows developers to quickly search for embeddings of multimedia documents that are similar to each other.",
+              "score": 0.055052757263183594
+            }
+          ],
+          "answer": "Gradio"
+        },
+        "status": "success",
+        "error": null,
+        "latency_ms": 258.6197853088379,
+        "timestamp": 1773965566.216464
+      }
+    ]
+  }
+]

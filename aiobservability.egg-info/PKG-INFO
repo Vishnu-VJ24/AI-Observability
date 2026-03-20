@@ -1,0 +1,7 @@
+Metadata-Version: 2.1
+Name: aiobservability
+Version: 0.1.0
+Summary: A model-agnostic, zero-trust AI observability and evaluation SDK.
+Author: AI Observe
+Requires-Python: >=3.8
+License-File: LICENSE
